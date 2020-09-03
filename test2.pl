@@ -23,7 +23,31 @@ solve :-
 	false	
 	.
 	
-	
+
+
+/*
+
+
+koom@dev ~/aindilis/calorie_constraints (master)> swipl -s test2.pl -g solve,halt
+behold:
+'Ingredients_0_g:',55
+'Ingredients_1_g:',16105
+'Meal_calories_cal:',2000000
+behold:
+'Ingredients_0_g:',178
+'Ingredients_1_g:',15758
+'Meal_calories_cal:',2000000
+behold:
+'Ingredients_0_g:',301
+'Ingredients_1_g:',15411
+'Meal_calories_cal:',2000000
+behold:
+
+...
+
+
+
+*/
 
 
 
