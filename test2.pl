@@ -1,50 +1,49 @@
  :- use_module(library(clpfd)).
 
 solve :-
-	%Meal_calories_cal #>= 1800000, Meal_calories_cal #=< 2200000,
-	Meal_calories_cal #= 2000000,
-	
-	Meal_calories_cal #= Ingredients_0_calories_cal + Ingredients_1_calories_cal,
+	Meal_cal #>= 1800000, Meal_cal #=< 2200000,
+	Meal_cal #= Ingredients0_cal + Ingredients1_cal + Ingredients2_cal, % total meal calories is sum of the portion of calories coming from ingredient0 and of those coming from ingredient1. 
 
-	Ingredients_0_calories_cal #= 347 * Ingredients_0_g,
+	Ingredients0_cal #= 347 * Ingredients0_g, % there are 347 calories in 1g of ingredient0
+	Ingredients1_cal #= 123 * Ingredients1_g,
+	Ingredients2_cal #= 5670 * Ingredients2_g,
 	
-	Ingredients_0_g #>= 0,
-	Ingredients_0_g #=< 1000000,
-	Ingredients_1_g #>= 0,
-	Ingredients_1_g #=< 1000000,
+	Ingredients0_g #>= 0,
+	Ingredients1_g #>= 0,
+	Ingredients2_g #>= 0,
+	Ingredients0_g #=< 400, % let's assume max 400g of any one ingredient
+	Ingredients1_g #=< 400,
+	Ingredients2_g #=< 400,
 	
-	Ingredients_1_calories_cal #= 123 * Ingredients_1_g,
-%gtrace,
-	labeling([], [Meal_calories_cal,Ingredients_0_g,Ingredients_1_g]),
+	labeling([], [Ingredients0_g,Ingredients1_g,Ingredients2_g]),
+	
 	write('behold:'),nl,
-	writeq(('Ingredients_0_g:', Ingredients_0_g)),nl,
-	writeq(('Ingredients_1_g:', Ingredients_1_g)),nl,
-	writeq(('Meal_calories_cal:', Meal_calories_cal)),nl,
-	false	
+	writeq(('Ingredients0_g:', Ingredients0_g)),nl,
+	writeq(('Ingredients1_g:', Ingredients1_g)),nl,
+	writeq(('Ingredients2_g:', Ingredients2_g)),nl,
+	writeq(('Meal_cal:', Meal_cal)),nl,
+	
+	false % failure-driven loop
 	.
 	
 
 
 /*
 
-
-koom@dev ~/aindilis/calorie_constraints (master)> swipl -s test2.pl -g solve,halt
+koom@dev ~/aindilis/calorie_constraints (master) [4]> swipl -s test2.pl -g solve,halt
 behold:
-'Ingredients_0_g:',55
-'Ingredients_1_g:',16105
-'Meal_calories_cal:',2000000
+'Ingredients0_g:',0
+'Ingredients1_g:',0
+'Ingredients2_g:',318
+'Meal_cal:',1803060
 behold:
-'Ingredients_0_g:',178
-'Ingredients_1_g:',15758
-'Meal_calories_cal:',2000000
-behold:
-'Ingredients_0_g:',301
-'Ingredients_1_g:',15411
-'Meal_calories_cal:',2000000
+'Ingredients0_g:',0
+'Ingredients1_g:',0
+'Ingredients2_g:',319
+'Meal_cal:',1808730
 behold:
 
 ...
-
 
 
 */
